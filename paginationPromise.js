@@ -11,12 +11,12 @@ function loadEverything(){
 function loadFromPage(page, results = []){
   return photos.list({ page })
     .then(response => {
-      results = results.concat(response.result);
+      const nextResults = results.concat(response.results);
 
-      if (response.pages === page){
+      if (page >= response.pages){
         return results;
       }
       
-      return loadFromPage(page + 1, results);
+      return loadFromPage(page + 1, nextResults);
     });
 }
