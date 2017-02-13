@@ -1,0 +1,14 @@
+{
+  "name": "streams",
+  "version": "1.0.0",
+  "description": "Streams demo",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Guillaume Gautreau",
+  "license": "WTFPL",
+  "dependencies": {
+    "highland": "^2.10.2",
+    "node-fetch": "^1.6.3"
+  }
+}
