@@ -3,11 +3,7 @@
 const highland = require('highland');
 const photos = require('./jsonPlaceholder').photos;
 
-module.exports = loadEverything;
-
-function loadEverything(){
-  return loadFromPage(0);
-}
+module.exports = loadFromPage.bind(null, 0);
 
 function loadFromPage(page){
   return highland((push, next) => {
