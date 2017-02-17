@@ -1,13 +1,12 @@
 "use strict";
 
 const highland = require('highland');
-const photos = require('./jsonPlaceholder').photos;
 
-module.exports = loadFromPage.bind(null, 0);
+module.exports = loadFromPage.bind(null, 1);
 
-function loadFromPage(page){
+function loadFromPage(page, endpoint, parameters){
   return highland((push, next) => {
-    photos.list({ page })
+    endpoint.list({ page }, parameters)
       .then(response => {
         response.results.forEach(photo => {
           push(null, photo);
@@ -16,7 +15,7 @@ function loadFromPage(page){
         if (response.pages === page){
           push(null, highland.nil);
         }else{
-          next(loadFromPage(page + 1))
+          next(loadFromPage(page + 1, endpoint, parameters))
         }
       })
       .catch(error => {

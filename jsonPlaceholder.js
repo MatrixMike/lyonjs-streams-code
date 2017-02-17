@@ -7,19 +7,24 @@ const URL = 'http://jsonplaceholder.typicode.com';
 
 module.exports = {
   photos: {
-    list: list.bind(null, '/photos')
-  }
-}
+    list: list.bind(null, '/photos'),
+  },
+  albums: {
+    list: list.bind(null, '/albums'),
+  },
+};
 
-
-function list(path, { page = 1, size = 10 } = {}){
+function list(path, { page = 1, size = 10 } = {}, parameters){
   size = Math.max(0, size);
   page = Math.max(1, page);
 
-  const searchParams = {
-    _limit: size,
-    _start: (page - 1) * size
-  };
+  const searchParams = Object.assign(
+    {},
+    parameters,
+    {
+      _limit: size,
+      _start: (page - 1) * size,
+    });
 
   return fetch(`${URL}${path}?${queryString.stringify(searchParams)}`)
     .then(response => {

@@ -1,21 +1,25 @@
 "use strict";
 
-// const streamLoad = require("./paginationStream");
+// Stream example
+const streamLoad = require("./paginationStream");
+const photos = require('./jsonPlaceholder').photos;
 
-// streamLoad()
-//   .each(console.log);
+streamLoad(photos)
+  .filter(photo => photo.title.split(' ').length > 4)
+  .map(photo => photo.url)
+  .each(console.log)
+  .done();
 
 
-// const promiseLoad = require('./paginationPromise');
+// Promise example
+const promiseLoad = require('./paginationPromise');
 
-// const before = Date.now();
-// promiseLoad()
-//   .then(console.log)
-//   .then(() => {
-//     const after = Date.now();
-//     console.log(`${after - before}ms`);
-//   });
+promiseLoad()
+  .then(console.log);
 
+
+// Promise with callbacks
 const promiseCallbackLoad = require('./paginationPromiseWithCallbacks')
 
-promiseCallbackLoad((error, result) => console.log(result));
+promiseCallbackLoad((error, result) => console.log(result))
+  .then(() => console.log('done'));
