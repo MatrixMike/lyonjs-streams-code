@@ -36,7 +36,7 @@ function list(path, { page = 1, size = 10 } = {}, parameters){
     .then(([results, total]) => {
       return {
         results,
-        total,
+        total: +total,
         page,
         pages: size > 0 ? Math.ceil(total / size) : undefined 
       }
